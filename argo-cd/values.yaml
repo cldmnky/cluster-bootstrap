@@ -24,8 +24,6 @@ server:
         repoURL: https://github.com/cldmnky/cluster-bootstrap.git
         targetRevision: master
         path: bootstrap
-        directory:
-          recurse: true
         helm:
           values: |-  
             cluster: foo-stage-cluster
