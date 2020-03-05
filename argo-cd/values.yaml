@@ -1,0 +1,45 @@
+installCRDs: false
+dex:
+  enabled: false
+server:
+  ingress: 
+    enabled: true
+    hosts:
+      - blah
+  config:
+    url: blah
+    repositories: |
+      - url: https://github.com/cldmnky/cluster-bootstrap.git
+        passwordSecret:
+          name: bootstrap
+          key: password
+        usernameSecret:
+          name: bootstrap
+          key: username
+  additionalApplications:
+    - name: bootstrap
+      namespace: argocd
+      project: default
+      source:
+        repoURL: https://github.com/cldmnky/cluster-bootstrap.git
+        targetRevision: master
+        path: bootstrap
+        directory:
+          recurse: true
+        helm:
+          values: |-  
+            cluster: foo-stage-cluster
+            environment: stage
+            spec:
+              destination:
+                server: https://kubernetes.default.svc
+              source:
+                repoURL: https://github.com/cldmnky/cluster-bootstrap.git
+                targetRevision: master 
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+        syncPolicy:
+          automated:
+            prune: true
+          selfHeal: false
