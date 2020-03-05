@@ -8,11 +8,22 @@ metadata:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: app-namespafe
+    namespace: app-namespace
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
     path: charts/example-app
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
+    helm:
+      values: |-  
+        cluster: {{ .Values.cluster }}
+        environment: {{ .Values.environment }}
+        spec:
+          destination:
+            server: https://kubernetes.default.svc
+          source:
+            repoURL: https://github.com/cldmnky/cluster-bootstrap.git
+            targetRevision: {{ .Values.spec.source.targetRevision }} 
+
 {{ end }}
