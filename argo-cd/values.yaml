@@ -37,10 +37,10 @@ server:
       destination:
         server: https://kubernetes.default.svc
         namespace: argocd
-        syncPolicy:
-          automated:
-            prune: true
-          selfHeal: false
+      syncPolicy:
+        automated:
+          prune: true
+        selfHeal: false
 repoServer:
   volumes:
   - name: custom-tools
