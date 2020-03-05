@@ -1,7 +1,8 @@
+bootstrapNamespace: argocd
 spec:
   destination:
     server: https://kubernetes.default.svc
   source:
-    repoURL: https://github.com/argoproj/argocd-example-apps
+    repoURL: https://github.com/cldmnky/cluster-bootstrap.git
     targetRevision: HEAD
-diceEnabled: true
+appEnabled: true

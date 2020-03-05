@@ -1,18 +1,18 @@
-{{ if .Values.diceEnabled }}
+{{ if .Values.appEnabled }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: dice-app
-  namespace: bootstrap
+  name: argocd-app-example
+  namespace: {{ .Values.bootstrapNamespace }}
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: dice
+    namespace: app-namespafe
     server: {{ .Values.spec.destination.server }}
   project: default
   source:
-    path: charts/dice
+    path: charts/example-app
     repoURL: {{ .Values.spec.source.repoURL }}
     targetRevision: {{ .Values.spec.source.targetRevision }}
 {{ end }}
